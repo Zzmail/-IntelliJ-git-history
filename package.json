@@ -1,0 +1,78 @@
+{
+  "name": "intellij-git-history",
+  "displayName": "IntelliJ Git History",
+  "description": "A VS Code extension that brings an IntelliJ-style Git history experience to the sidebar.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "license": "MIT",
+  "icon": "media/extension-icon.png",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "SCM",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:gitHistory.mainView",
+    "onCommand:gitHistory.focus",
+    "onCommand:gitHistory.refresh"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitHistory.refresh",
+        "category": "Git History",
+        "title": "Git History: \\u5237\\u65b0"
+      },
+      {
+        "command": "gitHistory.focus",
+        "category": "Git History",
+        "title": "Git History: \\u805a\\u7126\\u5386\\u53f2\\u89c6\\u56fe"
+      }
+    ],
+    "viewsContainers": {
+      "panel": [
+        {
+          "id": "gitHistoryPanel",
+          "title": "Git History",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gitHistoryPanel": [
+        {
+          "type": "webview",
+          "id": "gitHistory.mainView",
+          "name": "\\u5386\\u53f2"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "gitHistory.refresh",
+          "when": "view == gitHistory.mainView",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node --test --test-isolation=none out/test/actionAvailability.test.js out/test/parsers.test.js",
+    "lint": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/vscode": "^1.98.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.52.2"
+  }
+}
